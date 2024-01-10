@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <meta charset="UTF-8">
+    <title>Поиск книги</title>
+
+    {% macro render_books(books) %}
+    {% for i in range(len(books)) %}
+    <div class="block__book">
+        <p>Название: <b>{{books.loc[i, 'title']}}</b></p>
+        <p>Авторы: <b>{{books.loc[i, 'authors']}}</b></p>
+        <p>Жанр: <b>{{books.loc[i, 'genre_name']}}</b></p>
+        <p>Издательство: <b>{{books.loc[i, 'publisher_name']}}</b></p>
+        <p>Год издания: <b>{{books.loc[i, 'year_publication']}}</b></p>
+        <p>Количество: <b>{{books.loc[i, 'available_numbers']}}</b></p>
+        <p>book_id: <b>{{books.loc[i, 'book_id']}}</b></p>
+        {% if books.loc[i, 'available_numbers'] == 0 %}
+        <button type="submit" name="book" value="{{books.loc[i, 'book_id']}}" disabled>Взять книгу</button>
+        {% else %}
+        <button type="submit" name="book" value="{{books.loc[i, 'book_id']}}">Взять книгу</button>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% endmacro %}
+
+    {% macro render_genres() %}
+    {% for i in range(len(df_genres)) %}
+    {% if df_genres.loc[i, 'genre_id'] in genres_selected and search_genres %}
+    <input type="checkbox" name="genres" value="{{df_genres.loc[i, 'genre_id']}}" checked>
+    {% else %}
+    <input type="checkbox" name="genres" value="{{df_genres.loc[i, 'genre_id']}}">
+    {% endif %}
+    <label>{{df_genres.loc[i, 'genre_name']}}</label><br>
+    {% endfor %}
+    {% endmacro %}
+
+    {% macro render_authors() %}
+    {% for i in range(len(df_authors)) %}
+    {% if df_authors.loc[i, 'author_id'] in authors_selected and search_authors %}
+    <input type="checkbox" name="authors" value="{{df_authors.loc[i, 'author_id']}}" checked>
+    {% else %}
+    <input type="checkbox" name="authors" value="{{df_authors.loc[i, 'author_id']}}">
+    {% endif %}
+    <label>{{df_authors.loc[i, 'author_name']}}</label><br>
+    {% endfor %}
+    {% endmacro %}
+
+    {% macro render_publishers() %}
+    {% for i in range(len(df_publishers)) %}
+    {% if df_publishers.loc[i, 'publisher_id'] in publishers_selected and search_publishers %}
+    <input type="checkbox" name="publishers" value="{{df_publishers.loc[i, 'publisher_id']}}" checked>
+    {% else %}
+    <input type="checkbox" name="publishers" value="{{df_publishers.loc[i, 'publisher_id']}}">
+    {% endif %}
+    <label>{{df_publishers.loc[i, 'publisher_name']}}</label><br>
+    {% endfor %}
+    {% endmacro %}
+
+    {% macro render_params() %}
+    {% endmacro %}
+
+
+</head>
+<body>
+    <div class="menu">
+        <ul>
+            <li class ="active">Поиск книг</li>
+        </ul>
+    </div>
+    <div class="search-block">
+        <div class="block__params">
+            <form action={{url_for("search")}} method="get">
+            <details open>
+                <summary>Жанр</summary>
+                {{render_genres()}}
+            </details>
+            <details open>
+                <summary>Автор</summary>
+                {{render_authors()}}
+            </details>
+            <details open>
+                <summary>Издательство</summary>
+                {{render_publishers()}}
+            </details>
+            <p>
+                <input type="submit" name="search" value="Найти">
+                <button >Очистить</button>
+            </p>
+            </form>
+        </div>
+        <div class="block__result">
+            <form action={{url_for("index")}} method="get">
+                <input type="submit" name="noselect" value="Не выбирать книгу">
+                {{render_params()}}
+                <div class="block__books">
+                    {{render_books(df_searched_books)}}
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

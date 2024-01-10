@@ -1,0 +1,104 @@
+.menu {
+ background-color: #f1f1f1;
+ box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.4);
+ width: 100%;
+}
+
+.menu li {
+ display: inline-block;
+ vertical-align: top;
+ padding: 10px;
+ color: #6f6d6d;
+}
+
+.menu a {
+ text-decoration: none;
+ color: #6f6d6d;
+ }
+
+.menu li:hover {
+ background-color: #f87777;
+ cursor: pointer;
+ color: #f8f8f8;
+}
+
+.menu ul {
+ padding: 0px;
+}
+
+.active{
+ background-color: #f87777;
+ color: #f8f8f8;
+}
+
+.active a:visited{
+ color: #f8f8f8;
+}
+
+.menu a:hover{
+ color: #f8f8f8;
+}
+
+.block {
+ padding: 10px 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+.table {
+    display: inline-block;
+}
+
+.header {
+    background: #D3D3D3;
+}
+
+tr:nth-child(even) {
+    background-color: #DCDCDC;
+}
+
+.table p {
+    text-align: center;
+}
+
+.search-block {
+    display: flex;
+}
+
+.block__params {
+    border: 1px solid gray;
+    padding-left: 5px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #42aaff;
+    width: 20%;
+}
+
+.block__result {
+    width: 80%;
+    padding-left: 10px;
+}
+
+.block__books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.block__book {
+    padding: 5px;
+    background-color: #DCDCDC;
+    width: 350px;
+    box-shadow: 5px 5px 2px gray;
+}
+
+
